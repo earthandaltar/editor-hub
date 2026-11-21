@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Earth &amp; Altar Hub</title>
+</head>
+<body>
+<div id="app"><p style="font:18px Georgia,serif;text-align:center;padding:80px 20px;color:#6a6e75">Opening the hub…</p></div>
+<script>
+// This page holds no hub data. It fetches the screens from the hub, which then ask for a sign-in.
+window.HUB_API = "https://script.google.com/macros/s/AKfycbzTw-oxT3fbBPRoMYTldz0J2eq-cq_fQl-gB0qcTeaSkRrzgmb-TAKu7dUaOWUijTBVww/exec";
+fetch(window.HUB_API + '?op=app').then(function (r) { return r.json(); }).then(function (b) {
+  if (!b || !b.ok) throw new Error((b && b.error) || 'The screens did not arrive.');
+  var s = document.createElement('style'); s.textContent = b.css; document.head.appendChild(s);
+  (new Function(b.js))();
+}).catch(function (e) {
+  document.getElementById('app').innerHTML = '<p style="font:18px Georgia,serif;text-align:center;padding:80px 20px;color:#9b2c2c">The hub could not be opened. ' + String((e && e.message) || e).replace(/</g, '&lt;') + '</p>';
+});
+</script>
+</body>
+</html>
